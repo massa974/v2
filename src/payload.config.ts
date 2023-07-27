@@ -8,6 +8,7 @@ import path from 'path'
 import { buildConfig } from 'payload/config'
 
 import Categories from './collections/Categories'
+import Lesson from './collections/Lesson' // Make sure this file exists and is correctly exported
 import { Media } from './collections/Media'
 import { Pages } from './collections/Pages'
 import { Posts } from './collections/Posts'
@@ -26,8 +27,6 @@ export default buildConfig({
   admin: {
     user: Users.slug,
     components: {
-      // The BeforeDashboard component renders the 'welcome' block that you see after logging into your admin panel.
-      // Feel free to delete this at any time. Simply remove the line below and the import BeforeDashboard statement on line 15.
       beforeDashboard: [BeforeDashboard],
     },
     webpack: config => ({
@@ -42,7 +41,7 @@ export default buildConfig({
     }),
   },
   serverURL: process.env.PAYLOAD_PUBLIC_SERVER_URL,
-  collections: [Users, Categories, Pages, Posts, Media],
+  collections: [Users, Categories, Pages, Posts, Media, Lesson], // Add Lesson to collections
   globals: [Header, Footer],
   typescript: {
     outputFile: path.resolve(__dirname, 'payload-types.ts'),
