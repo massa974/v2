@@ -16,6 +16,13 @@ const Skill: CollectionConfig = {
       label: 'Lessons',
       hasMany: true,
     },
+    {
+      name: 'course',
+      type: 'relationship',
+      relationTo: 'course',
+      label: 'Course',
+      hasMany: false,
+    },    
   ],
   admin: {
     useAsTitle: 'title', // Utilisez le champ 'title' comme titre dans l'interface d'administration

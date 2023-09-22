@@ -39,6 +39,31 @@ const Lesson: CollectionConfig = {
       required: true,
     },
     {
+      type: 'row', // Utilisez le type 'row' pour créer une ligne
+      fields: [
+        {
+          name: 'categories',
+          type: 'relationship',
+          relationTo: 'categories',
+          label: 'Categories',
+          hasMany: true,
+          admin: {
+            width: '50%', // Définissez la largeur à 50%
+          },
+        },
+        {
+          name: 'skills',
+          type: 'relationship',
+          relationTo: 'skill',
+          label: 'Skills',
+          hasMany: true,
+          admin: {
+            width: '50%', // Définissez la largeur à 50%
+          },
+        },
+      ],
+    },
+    {
       name: 'content',
       type: 'blocks',
       blocks: [
@@ -73,16 +98,9 @@ const Lesson: CollectionConfig = {
         ytVideo,
       ],
     },
-    {
-      name: 'skills',
-      type: 'relationship',
-      relationTo: 'skill',
-      label: 'Skills',
-      hasMany: true,
-    },
   ],
   admin: {
-    useAsTitle: 'title', // Utilisez le champ 'title' comme titre dans l'interface d'administration
+    useAsTitle: 'title',
   },
 };
 

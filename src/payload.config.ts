@@ -1,30 +1,32 @@
-import { payloadCloud } from '@payloadcms/plugin-cloud'
-import FormBuilder from '@payloadcms/plugin-form-builder'
-import nestedDocs from '@payloadcms/plugin-nested-docs'
-import redirects from '@payloadcms/plugin-redirects'
-import seo from '@payloadcms/plugin-seo'
-import type { GenerateTitle } from '@payloadcms/plugin-seo/types'
-import path from 'path'
-import { buildConfig } from 'payload/config'
+import { payloadCloud } from '@payloadcms/plugin-cloud';
+import FormBuilder from '@payloadcms/plugin-form-builder';
+import nestedDocs from '@payloadcms/plugin-nested-docs';
+import redirects from '@payloadcms/plugin-redirects';
+import seo from '@payloadcms/plugin-seo';
+import type { GenerateTitle } from '@payloadcms/plugin-seo/types';
+import path from 'path';
+import { buildConfig } from 'payload/config';
 
-import Categories from './collections/Categories'
-import Lesson from './collections/Lesson'
+import Categories from './collections/Categories';
+import Lesson from './collections/Lesson';
 import Course from './collections/course';
 import Class from './collections/class';
 import Skill from './collections/skill';
-import { Media } from './collections/Media'
-import { Pages } from './collections/Pages'
-import { Posts } from './collections/Posts'
-import Users from './collections/Users'
-import BeforeDashboard from './components/BeforeDashboard'
-import { Footer } from './globals/Footer'
-import { Header } from './globals/Header'
+import Module from './collections/Module'; // Nouvelle importation
+import SkillClass from './collections/SkillClass'; // Nouvelle importation
+import { Media } from './collections/Media';
+import { Pages } from './collections/Pages';
+import { Posts } from './collections/Posts';
+import Users from './collections/Users';
+import BeforeDashboard from './components/BeforeDashboard';
+import { Footer } from './globals/Footer';
+import { Header } from './globals/Header';
 
 const generateTitle: GenerateTitle = () => {
-  return 'My Website'
-}
+  return 'My Website';
+};
 
-const mockModulePath = path.resolve(__dirname, './emptyModuleMock.js')
+const mockModulePath = path.resolve(__dirname, './emptyModuleMock.js');
 
 export default buildConfig({
   admin: {
@@ -44,7 +46,19 @@ export default buildConfig({
     }),
   },
   serverURL: process.env.PAYLOAD_PUBLIC_SERVER_URL,
-  collections: [Users, Categories, Pages, Posts, Media, Lesson, Course, Class, Skill], // Add Lesson to collections
+  collections: [
+    Users, 
+    Categories, 
+    Pages, 
+    Posts, 
+    Media, 
+    Lesson, 
+    Course, 
+    Class, 
+    Skill, 
+    Module, // Nouvelle collection ajoutée
+    SkillClass // Nouvelle collection ajoutée
+  ],
   globals: [Header, Footer],
   typescript: {
     outputFile: path.resolve(__dirname, 'payload-types.ts'),
@@ -65,16 +79,16 @@ export default buildConfig({
       },
     }),
     nestedDocs({
-      collections: ['pages', 'posts', 'categories'],
+      collections: ['pages', 'posts', 'categories', 'module', 'skillClass'],
     }),
     redirects({
       collections: ['pages', 'posts'],
     }),
     seo({
-      collections: ['pages', 'posts'],
+      collections: ['pages', 'posts', 'module', 'skillClass'], // Ajouté 'module' et 'skillClass'
       generateTitle,
       uploadsCollection: 'media',
     }),
     payloadCloud(),
   ],
-})
+});
